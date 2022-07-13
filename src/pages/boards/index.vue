@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAlerts } from "@/stores/alerts";
 import type { Board } from "@/types";
 
 import { ref } from "vue";
@@ -25,12 +26,18 @@ const boards = ref<Partial<Board>[]>([
     order: "[]",
   },
 ]);
+
+const alerts = useAlerts();
+
+function createBoard() {
+  alerts.notify("Board created!", "success");
+}
 </script>
 
 <template>
   <div class="container flex flex-wrap">
     <BoardCard v-for="board in boards" :key="board.id" :board="board" />
-    <button class="text-gray-500">
+    <button class="text-gray-500" @click="createBoard()">
       <span>New Board +</span>
     </button>
   </div>
