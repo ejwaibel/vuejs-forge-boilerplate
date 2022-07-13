@@ -13,6 +13,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@progress/kendo-vue-intl": "^3.4.3",
     "@vue/apollo-composable": "^4.0.0-alpha.18",
     "graphql-tag": "^2.12.6",
     "lodash-es": "^4.17.21",
@@ -35,6 +36,7 @@
     "@progress/kendo-vue-layout": "^3.4.0",
     "@progress/kendo-vue-notification": "^3.4.0",
     "@progress/kendo-vue-popup": "^3.4.0",
+    "@progress/kendo-vue-progressbars": "^3.4.3",
     "@rushstack/eslint-patch": "^1.1.0",
     "@twicpics/components": "^0.8.2",
     "@types/jsdom": "^16.2.14",
