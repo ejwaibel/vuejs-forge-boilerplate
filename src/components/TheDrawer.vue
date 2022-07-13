@@ -16,7 +16,6 @@ const items = computed(() => [
   {
     text: "Boards",
     icon: "k-i-set-column-position",
-    selected: true,
     data: {
       path: "/",
     },
@@ -24,7 +23,6 @@ const items = computed(() => [
   {
     text: "Templates",
     icon: "k-i-border-left",
-    selected: false,
     data: {
       path: "/templates",
     },
@@ -32,7 +30,6 @@ const items = computed(() => [
   {
     text: "Settings",
     icon: "k-i-gear",
-    selected: false,
     data: {
       path: "/settings",
     },
