@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import "@/assets/base.css";
@@ -8,10 +9,11 @@ import "@progress/kendo-theme-default/dist/all.css";
 import TwicPics from "@twicpics/components/vue3";
 import "@twicpics/components/style.css";
 
+// app is the application instance
 const app = createApp(App);
 
-app.use(router);
-// app is the application instance
+app.use(router).use(createPinia());
+
 app.use(TwicPics, {
   domain: "https://orange-pelicans.twic.pics",
 });
