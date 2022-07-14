@@ -1,21 +1,20 @@
-import { createApp } from "vue";
+import { createApp, provide, h } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import "@/assets/base.css";
 import "@progress/kendo-theme-default/dist/all.css";
+import { DefaultApolloClient } from "@vue/apollo-composable";
+import { apolloClient } from "@/graphql/apolloClient";
 
-// import TwicPics vue3 plugin
-import TwicPics from "@twicpics/components/vue3";
-import "@twicpics/components/style.css";
+const app = createApp({
+  setup() {
+    provide(DefaultApolloClient, apolloClient);
+  },
 
-// app is the application instance
-const app = createApp(App);
+  render: () => h(App),
+});
 
 app.use(router).use(createPinia());
-
-app.use(TwicPics, {
-  domain: "https://orange-pelicans.twic.pics",
-});
 
 app.mount("#app");

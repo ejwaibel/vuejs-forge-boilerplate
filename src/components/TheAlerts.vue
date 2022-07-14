@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { useAlerts } from "@/stores/alerts";
+import { Fade } from "@progress/kendo-vue-animation";
+import {
+  Notification,
+  NotificationGroup,
+} from "@progress/kendo-vue-notification";
+
+const alerts = useAlerts();
+</script>
+
+<style scoped></style>
 <template>
   <div class="z-10">
     <NotificationGroup
@@ -15,7 +27,7 @@
             icon: true,
           }"
           :closable="alert.closable"
-          @close="() => {}"
+          @close="alerts.remove(alert.id)"
         >
           <div v-if="alert.html" :html="alert.message"></div>
           <span v-else>{{ alert.message }}</span>
@@ -24,16 +36,3 @@
     </NotificationGroup>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAlerts } from "@/stores/alerts";
-import { Fade } from "@progress/kendo-vue-animation";
-import {
-  Notification,
-  NotificationGroup,
-} from "@progress/kendo-vue-notification";
-
-const alerts = useAlerts();
-</script>
-
-<style scoped></style>

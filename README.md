@@ -1,4 +1,24 @@
-# vue-forge-boilerplate
+![Vue.js Forge Logo](https://vuejsforge.com/images/logo.svg)
+
+# Vue.js Forge Official Project Repo
+
+We're super excited to be teaming up with the community to build a SaaS Project Management App together! 
+
+Use this repo to keep up with the code as it's being worked on live by event speakers.
+
+You can merge changes from this repo into your own working project by adding it as a remote:
+
+```
+git remote add speakers git@github.com:vueschool/vuejs-forge-the-project.git
+```
+
+and then pulling and merging (if you've made updates to your own codebase, you may need to resolve any resulting merge conflicts)
+
+```
+git pull speakers main
+```
+
+# Project Setup
 
 This template should help get you started developing with Vue 3 in Vite.
 

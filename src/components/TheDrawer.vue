@@ -1,51 +1,56 @@
 <script setup lang="ts">
 import { Drawer, DrawerContent } from "@progress/kendo-vue-layout";
-
-import { useRouter } from "vue-router";
+import { useLocalStorage } from "@vueuse/core";
+import { useRouter, useRoute } from "vue-router";
 
 import { computed, ref } from "vue";
 
 const router = useRouter();
-const selectedId = ref<number>(0);
+const route = useRoute();
 
-const expanded = ref(false);
+const expanded = useLocalStorage("vue-forge-drawer-expanded", true);
 const expandedIcon = computed(() =>
   expanded.value ? "k-i-arrow-chevron-left" : "k-i-arrow-chevron-right"
 );
-const items = computed(() => [
-  {
-    text: "Boards",
-    icon: "k-i-set-column-position",
-    data: {
-      path: "/",
+const items = computed(() =>
+  [
+    {
+      text: "Boards",
+      icon: "k-i-set-column-position",
+      data: {
+        path: "/boards",
+      },
     },
-  },
-  {
-    text: "Templates",
-    icon: "k-i-border-left",
-    data: {
-      path: "/templates",
+    {
+      text: "Templates",
+      icon: "k-i-border-left",
+      data: {
+        path: "/templates",
+      },
     },
-  },
-  {
-    text: "Settings",
-    icon: "k-i-gear",
-    data: {
-      path: "/settings",
+    {
+      text: "Settings",
+      icon: "k-i-gear",
+      data: {
+        path: "/settings",
+      },
     },
-  },
-  {
-    text: "Collapse",
-    icon: expandedIcon.value,
-    data: {
-      action: () => (expanded.value = !expanded.value),
+    {
+      text: "Collapse",
+      icon: expandedIcon.value,
+      data: {
+        action: () => (expanded.value = !expanded.value),
+      },
     },
-  },
-]);
+  ].map((item) => ({
+    ...item,
+    selected: item.data.path ? route.path.startsWith(item.data.path) : false,
+  }))
+);
 
 function onSelect({ itemIndex }: { itemIndex: number }) {
-  selectedId.value = itemIndex;
   const item = items.value[itemIndex];
+  if (!item) return;
   if (item.data.path) router.push(item.data.path);
   if (typeof item.data.action === "function") item.data.action();
 }
@@ -58,16 +63,11 @@ function onSelect({ itemIndex }: { itemIndex: number }) {
     position="start"
     mode="push"
     :mini="true"
-    :items="
-      items.map((item, index) => ({
-        ...item,
-        selected: index === selectedId,
-      }))
-    "
+    :items="items"
     @select="onSelect"
   >
-    <DrawerContent>
-      <div class="px-5">
+    <DrawerContent class="max-w-full overflow-hidden">
+      <div class="p-5">
         <router-view />
       </div>
     </DrawerContent>

@@ -4,16 +4,10 @@ import { v4 as uuid } from "uuid";
 export type AlertStyle = "error" | "success" | "warning" | "info" | "none";
 
 export interface AlertOptions {
-  // Options
-  html: boolean;
-  closable: boolean;
-  timeout: number | false;
-  style: AlertStyle;
-}
-
-export interface Alert extends AlertOptions {
-  id: string;
-  message: string;
+  html?: boolean;
+  closable?: boolean;
+  timeout?: number | false;
+  style?: AlertStyle;
 }
 
 const defaultOptions: Required<AlertOptions> = {
@@ -23,6 +17,11 @@ const defaultOptions: Required<AlertOptions> = {
   style: "info",
 };
 
+export interface Alert extends AlertOptions {
+  id: string;
+  message: string;
+}
+
 export const useAlerts = defineStore("alerts", {
   state: () => ({
     items: [] as Alert[],
@@ -31,8 +30,8 @@ export const useAlerts = defineStore("alerts", {
   actions: {
     notify(message: string, style: AlertStyle, options?: AlertOptions) {
       options = { ...defaultOptions, style, ...options };
+
       const id = uuid();
-      console.log("Adding new item:", { message, id, ...options });
       this.items.push({
         message,
         id,
@@ -44,6 +43,22 @@ export const useAlerts = defineStore("alerts", {
           this.remove(id);
         }, options.timeout);
       }
+    },
+
+    success(message: string, options?: AlertOptions) {
+      this.notify(message, "success", options);
+    },
+
+    error(message: string, options?: AlertOptions) {
+      this.notify(message, "error", options);
+    },
+
+    warning(message: string, options?: AlertOptions) {
+      this.notify(message, "warning", options);
+    },
+
+    info(message: string, options?: AlertOptions) {
+      this.notify(message, "info", options);
     },
 
     remove(id: string) {
